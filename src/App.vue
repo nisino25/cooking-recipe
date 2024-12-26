@@ -7,7 +7,8 @@
     <div class="d-flex justify-content-center align-items-center mb-3 gap-2">
       <template v-for="sortOption in sortOptions" :key="sortOption.key">
         <span 
-          class="badge bg-primary" 
+          class="badge" 
+          :class='currentSortKey === sortOption.key ? "bg-primary" : "bg-secondary" '
           @click="sortRecipes(sortOption.key)"
           style="cursor: pointer;"
         >
@@ -51,7 +52,7 @@
             </div>
             <div class="d-flex align-items-center mb-2 custom-gap">
               <span class="badge bg-secondary p-1">{{ convertMinutes(recipe.duration) }}</span>
-              <span class="badge bg-secondary">Lv. {{ recipe.difficulty }}/5</span>
+              <span class="badge bg-secondary">Lv.{{ recipe.difficulty }}/5</span>
             </div>
             <h5 class="card-title">{{ recipe.name }} <small class="text-secondary">x{{ recipe.times }}</small></h5>
             <!-- <p><strong>Ingredients:</strong> {{ recipe.ingredients }}</p>
@@ -72,7 +73,8 @@ export default {
       displayingRecipes: [], // To store recipes fetched from the API
       baseApiUrl: 'https://script.google.com/macros/s/AKfycbzWYzucDKrTiwQaFM6WCPUFc5MXcHehZLozXAQJOTopBm0HT3it4TgvbBAsdzRlxScs/exec',
       currentType: null,
-      sortOrder: 'desc', 
+      currentSortKey: null,
+      sortOrder: 'asc', 
       sortOptions: [
         { key: 'price', label: '¥' },
         { key: 'duration', label: 'mins' },
@@ -107,7 +109,7 @@ export default {
       } else {
         // Set new property and default to ascending order
         this.currentSortKey = property;
-        this.sortOrder = 'desc';
+        this.sortOrder = 'asc';
       }
 
       // Sort logic
@@ -120,7 +122,7 @@ export default {
     },
     resetSorting() {
       this.currentSortKey = null;
-      this.sortOrder = 'desc';
+      this.sortOrder = 'asc';
       if(this.currentType){
         return this.displayingRecipes = this.baseData.filter(recipe => recipe.type === this.currentType);
       }else{
