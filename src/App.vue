@@ -24,7 +24,7 @@
         <i class="fa-solid fa-xmark"></i>
       </span>
     </div>
-    <hr>
+    <hr> 
 
 
     <!-- Recipe Cards -->
