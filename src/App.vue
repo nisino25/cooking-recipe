@@ -41,7 +41,7 @@
         v-for="recipe in displayingRecipes"
         :key="recipe.name"
       >
-        <div class="card h-100" :class="recipe.times == 0 ? `flashing-border` : `` " @click="getDetail(recipe)">
+        <div class="card h-100" :class="recipe.times == 0 ? `flashing-border` : `` ">
           <div class="card-body">
             <div class="recipeImg-container mb-2">
               <img :src="recipe.img || '/img/notFound.jpg'" alt="Thumbnail" class="recipeImg">
@@ -55,6 +55,7 @@
               <span class="badge bg-secondary">Lv.{{ recipe.difficulty }}/5</span>
             </div>
             <h5 class="card-title">{{ recipe.name }} <small class="text-secondary">x{{ recipe.times }}</small></h5>
+            <span @click="getDetail(recipe)" class="badge bg-secondary p-1">more</span>
             <!-- <p><strong>Ingredients:</strong> {{ recipe.ingredients }}</p>
             <p v-if="recipe.description"><strong>Description:</strong> {{ recipe.description }}</p> -->
           </div>
@@ -229,6 +230,10 @@ export default {
     line-height: 1.5;
     min-height: calc(1.5em * 2); 
     max-height: calc(1.5em * 2); */
+  }
+
+  .card-body .card-title small{
+    font-size: .7em;
   }
 
   .custom-gap{
